@@ -47,6 +47,18 @@ The product should help creators evaluate:
 - sponsor marks are allowed where present
 - the frame does not spoil sensitive content
 
+## Preview Contexts
+
+Creators should preview the thumbnail where viewers actually see it:
+
+- a large player or watch-page header
+- a small grid or sidebar recommendation size
+- a mobile feed at thumbnail scale
+- light and dark surrounding interface
+- next to the episode title as it will appear on the destination
+
+These previews should use the real chosen frame and title text, so the creator can confirm the image and any text stay clear at the smallest size that matters.
+
 ## Review States
 
 The product should use thumbnail status to drive export and checklist behavior:
