@@ -79,6 +79,25 @@ Safe areas should be adjustable while staying tied to real episode content. The 
 
 A safe-area change should re-check the affected moment and destination rather than applying a static guide everywhere.
 
+## Customization Indicator
+
+A safe-area region either follows the show's saved layout or has been tailored for the episode in front of the creator, and the creator should always be able to tell which one they are looking at without leaving their edit.
+
+Each region carries one customization status:
+
+- following the show default — the region matches the placement saved in the show's reusable layout; this is the resting state and shows no marker
+- customized for this episode — the creator has tailored the region's size or position for this episode only
+
+Surface the customized status as a small quiet dot on that region's guide handle, not as a banner, so it sits beside the region the creator is already working on and never interrupts the edit. A region following the show default carries no marker at all. Hovering the dot should name the show default it was tailored from and offer a one-click return to that default for this episode.
+
+Whether a customization is also saved back to the show's layout is a separate, independent choice:
+
+- a customized region is local to the episode until the creator chooses to save it to the show's layout
+- once saved to the show's layout, the region reads as following the show default again, because the tailored placement has become the new default
+- so the dot means only "tailored away from the current show default for this episode," and it clears the moment the two agree—either by returning to the default or by promoting the change into it
+
+This indicator only reports where the episode and the show default differ; it never re-flags safe-area overlap conflicts, which keep their own state on the affected moment and surface.
+
 ## Template Behavior
 
 Safe areas should be saved with templates where appropriate, but each episode should re-check them against its actual speaker count, brand kit, and export destination.
