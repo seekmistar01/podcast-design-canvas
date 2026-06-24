@@ -353,6 +353,7 @@
           <div id="status" class="status ready">Ready to style</div>
           <div id="issues" class="issues"></div>
           <p class="summary-note">Repairs update only the affected span. Unrelated caption or attribution warnings stay open until their owning review is done.</p>
+          <p class="summary-note">Audio-only keeps the speaker in the episode without video. Caption speaker fixes stay in review until attribution is checked.</p>
         </aside>
       </section>
     </main>
@@ -414,6 +415,14 @@
         intentional: "Mark timing as intentional",
         ignore: "Ignore for this episode",
         attribution: "Open attribution review",
+      };
+
+      const repairSummaryActions = {
+        "align-host": "Aligned to host",
+        "trim-silence": "Trimmed leading silence",
+        "add-gap": "Added a visible gap",
+        replace: "Replacement take confirmed",
+        "audio-only": "Marked audio-only",
       };
 
       const repairEffects = {
@@ -513,6 +522,15 @@
         return (issues[issueKey].repairs || []).filter((key) => !["intentional", "ignore", "attribution"].includes(key));
       }
 
+      function repairSummaryCopy(track, issue) {
+        const summary = repairSummaryActions[track.proposedRepair];
+        return summary ? `${summary} at ${issue.moment.toLowerCase()}.` : "Repair confirmed.";
+      }
+
+      function hasConfirmedRepair(track) {
+        return Boolean(track.repairConfirmed || track.resolution === "repaired");
+      }
+
       function evaluate(list) {
         const results = list.map((track) => {
           const issue = issues[track.issue];
@@ -548,14 +566,16 @@
             state = "needs attribution review";
             summary = {
               title: `${track.name}: captions need speaker review`,
-              action: "Open attribution review for the affected span before marking captions ready.",
+              action: track.repairConfirmed
+                ? `${repairSummaryCopy(track, issue)} Open attribution review for the affected span before marking captions ready.`
+                : "Open attribution review for the affected span before marking captions ready.",
               tone: "review",
             };
           } else if (track.resolution === "repaired") {
             state = "repaired";
             summary = {
               title: `${track.name}: repair confirmed`,
-              action: `${repairs[track.proposedRepair]} at ${issue.moment.toLowerCase()}.`,
+              action: repairSummaryCopy(track, issue),
               tone: "info",
             };
           }
@@ -668,7 +688,8 @@
           applyButton.type = "button";
           applyButton.textContent = "Confirm repair";
           applyButton.addEventListener("click", () => {
-            tracks[index].resolution = tracks[index].proposedRepair === "audio-only" ? "accepted" : "repaired";
+            tracks[index].repairConfirmed = true;
+            tracks[index].resolution = tracks[index].issue === "attribution" ? "needs attribution review" : "repaired";
             render();
           });
 
@@ -677,6 +698,7 @@
           intentionalButton.className = "secondary";
           intentionalButton.textContent = "Mark intentional";
           intentionalButton.addEventListener("click", () => {
+            tracks[index].repairConfirmed = false;
             tracks[index].resolution = "accepted";
             render();
           });
@@ -686,6 +708,7 @@
           ignoreButton.className = "secondary";
           ignoreButton.textContent = "Ignore for episode";
           ignoreButton.addEventListener("click", () => {
+            tracks[index].repairConfirmed = false;
             tracks[index].resolution = "ignored for episode";
             render();
           });
@@ -698,6 +721,7 @@
             attributionButton.className = "secondary";
             attributionButton.textContent = "Open attribution review";
             attributionButton.addEventListener("click", () => {
+              tracks[index].repairConfirmed = false;
               tracks[index].resolution = "needs attribution review";
               render();
             });
@@ -720,11 +744,13 @@
         if (field === "issue") {
           const choices = repairChoices(tracks[index].issue);
           tracks[index].proposedRepair = choices[0] || "";
+          tracks[index].repairConfirmed = false;
           tracks[index].resolution = null;
           tracks[index].previewMoment = issueDefaultPreviewMoment[tracks[index].issue] || "episode-start";
         }
 
         if (field === "proposedRepair") {
+          tracks[index].repairConfirmed = false;
           tracks[index].resolution = null;
         }
 
@@ -809,7 +835,7 @@
         compare.append(
           renderPreviewCard("Before repair", before, false, issue.description(track.name), [], track),
           renderPreviewCard(
-            track.resolution === "repaired" ? "Repair confirmed" : "With repair",
+            hasConfirmedRepair(track) ? "Repair confirmed" : "With repair",
             after,
             true,
             track.proposedRepair
