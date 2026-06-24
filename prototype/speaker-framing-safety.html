@@ -460,6 +460,9 @@
           fixes: ["review", "recrop", "switch", "accept"],
           title: (name) => `${name} is cropped too tight for the destination`,
           suggest: "Loosen the crop, switch the layout, or accept the close framing.",
+          // A too-tight crop is driven by the destination crop, which is owned by the
+          // destination crop preview screen — route the reviewer there to fix it.
+          owner: { fixScreen: "destination-crop-preview.html", fixLabel: "destination crop preview" },
         },
         panel: {
           label: "Too small in the panel",
@@ -474,6 +477,9 @@
           fixes: ["review", "recrop", "switch", "accept"],
           title: (name) => `${name} is cut off in the mobile crop`,
           suggest: "Re-center the mobile crop, switch to a stacked layout, or accept it.",
+          // The mobile safe-area crop is part of the destination crop, owned by the
+          // destination crop preview screen.
+          owner: { fixScreen: "destination-crop-preview.html", fixLabel: "destination crop preview" },
         },
       };
 
