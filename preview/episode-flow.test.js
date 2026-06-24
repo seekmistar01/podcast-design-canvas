@@ -20,8 +20,10 @@ assert.ok(shell.includes("episode-flow.html"), "preview shell links to the episo
 assert.match(flow, /<title>Podcast Design Canvas — Episode flow<\/title>/, "flow has product title");
 assert.match(flow, /aria-label="Podcast Design Canvas episode flow"/, "flow exposes a landmark label");
 
-// All five connected steps are present, in order, as one coherent path.
+// All seven connected steps are present, in order, as one coherent path.
 const stepTitles = [
+  "Episode readiness",
+  "Speaker roles",
   "Source media health",
   "Speaker sync",
   "Audio cleanup",
@@ -49,6 +51,9 @@ assert.ok(flow.includes("readyStatus"), "flow renders ready-count status text");
 assert.ok(flow.includes("nextStatus"), "flow renders next-action status text");
 assert.ok(flow.includes("Continue to"), "flow explains the next step when ready");
 assert.ok(flow.includes("steps ready"), "flow summarizes progress in creator-facing copy");
+assert.ok(flow.includes('speaker.bucket = "ready"'), "readiness step can resolve a speaker bucket");
+assert.ok(flow.includes("Add speaker name"), "readiness exposes a fix action for missing names");
+assert.ok(flow.includes("Confirm roles"), "roles step exposes a confirm action");
 
 // Editable caption text is never interpolated into innerHTML (XSS-safe rendering).
 assert.ok(!/innerHTML/.test(flow), "flow builds the DOM without innerHTML");
