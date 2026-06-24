@@ -82,6 +82,15 @@
         color: var(--muted);
         font-size: 13px;
       }
+    
+      .tools-title { margin: 34px 0 4px; font-size: 22px; }
+      .tools-lede { margin: 0 0 18px; color: var(--muted); max-width: 640px; }
+      .group-title { margin: 22px 0 10px; font-size: 15px; }
+      .tools { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; }
+      .tools li { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+      .tools a { display: block; padding: 12px 14px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 14px; }
+      .tools a span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; font-weight: 400; }
+      .tools a:hover, .tools a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     </style>
   </head>
   <body>
@@ -123,6 +132,58 @@
           </a>
         </li>
       </ol>
+
+
+      <h2 class="tools-title">More tools</h2>
+      <p class="tools-lede">Every other screen, grouped by where it fits in the episode workflow. Each opens a working prototype.</p>
+      <h3 class="group-title">Bring in the recording</h3>
+      <ul class="tools">
+        <li><a href="../prototype/episode-readiness.html">Episode readiness<span>Confirm the episode is ready to style.</span></a></li>
+        <li><a href="../prototype/speaker-role-mapping.html">Speaker role mapping<span>Map each track to a podcast role.</span></a></li>
+        <li><a href="../prototype/speaker-attribution-review.html">Speaker attribution review<span>Confirm who is speaking where.</span></a></li>
+        <li><a href="../prototype/speaker-visual-match.html">Speaker visual match<span>Match exposure and colour across tracks.</span></a></li>
+        <li><a href="../prototype/speaker-eye-line-coherence.html">Speaker eye-line coherence<span>Keep speakers looking toward each other.</span></a></li>
+        <li><a href="../prototype/guest-profile-reuse.html">Guest profile reuse<span>Reuse a returning guest’s approved details.</span></a></li>
+        <li><a href="../prototype/social-context-intake.html">Social context intake<span>Turn public links into accurate names.</span></a></li>
+      </ul>
+      <h3 class="group-title">Choose a visual direction</h3>
+      <ul class="tools">
+        <li><a href="../prototype/preset-style-picker.html">Preset style picker<span>Pick a polished episode direction.</span></a></li>
+        <li><a href="../prototype/preset-comparison-preview.html">Preset comparison preview<span>Compare directions side by side.</span></a></li>
+        <li><a href="../prototype/layout-safe-areas.html">Layout safe areas<span>Keep text and marks readable.</span></a></li>
+        <li><a href="../prototype/speaker-framing-safety.html">Speaker framing safety<span>Make sure no face is hidden.</span></a></li>
+      </ul>
+      <h3 class="group-title">Clean up audio &amp; captions</h3>
+      <ul class="tools">
+        <li><a href="../prototype/pause-crosstalk-cleanup.html">Pause &amp; cross-talk cleanup<span>Smooth pauses and cross-talk.</span></a></li>
+        <li><a href="../prototype/transcript-glossary.html">Transcript glossary<span>Approve recurring spellings once.</span></a></li>
+        <li><a href="../prototype/transcript-search-navigation.html">Transcript search &amp; navigation<span>Jump to moments by what was said.</span></a></li>
+        <li><a href="../prototype/accessibility-readability-checks.html">Accessibility &amp; readability<span>Catch hard-to-read captions.</span></a></li>
+        <li><a href="../prototype/line-pickup-insert.html">Line pickup insert<span>Drop in a re-recorded line cleanly.</span></a></li>
+        <li><a href="../prototype/on-screen-correction-note.html">On-screen correction note<span>Add a tasteful correction.</span></a></li>
+      </ul>
+      <h3 class="group-title">Add contextual visuals</h3>
+      <ul class="tools">
+        <li><a href="../prototype/contextual-broll-moments.html">Contextual b-roll moments<span>Approve suggested visual moments.</span></a></li>
+        <li><a href="../prototype/contextual-title-cards.html">Contextual title cards<span>Review title moments.</span></a></li>
+        <li><a href="../prototype/sensitive-moment-review.html">Sensitive moment review<span>Keep sensitive moments tasteful.</span></a></li>
+      </ul>
+      <h3 class="group-title">Make it reusable</h3>
+      <ul class="tools">
+        <li><a href="../prototype/show-segment-system.html">Show segment system<span>Arrange recurring segments.</span></a></li>
+        <li><a href="../prototype/show-template-adaptation.html">Show template adaptation<span>Apply a saved template.</span></a></li>
+        <li><a href="../prototype/start-from-previous-episode.html">Start from previous episode<span>Begin from a past episode’s setup.</span></a></li>
+        <li><a href="../prototype/episode-chapter-markers.html">Episode chapter markers<span>Give the episode a contents list.</span></a></li>
+      </ul>
+      <h3 class="group-title">Review &amp; publish</h3>
+      <ul class="tools">
+        <li><a href="../prototype/episode-watch-through-preview.html">Episode watch-through preview<span>Watch the finished episode.</span></a></li>
+        <li><a href="../prototype/export-package-handoff.html">Export package handoff<span>Package the right files.</span></a></li>
+        <li><a href="../prototype/publish-checklist.html">Publish checklist<span>Confirm every publish step.</span></a></li>
+        <li><a href="../prototype/destination-crop-preview.html">Destination crop preview<span>See how the episode crops.</span></a></li>
+        <li><a href="../prototype/thumbnail-cover-frame.html">Thumbnail &amp; cover frame<span>Pick a strong cover frame.</span></a></li>
+        <li><a href="../prototype/show-notes-assembly.html">Show notes assembly<span>Assemble notes, chapters, links.</span></a></li>
+      </ul>
 
       <p class="note">Start a local server from the repo root, then open <code>/preview/</code>. Example: <code>python3 -m http.server 8080</code></p>
     </main>
