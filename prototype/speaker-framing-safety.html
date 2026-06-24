@@ -332,6 +332,22 @@
         color: var(--muted);
       }
 
+      .issue .fix-link {
+        display: inline-block;
+        margin-top: 8px;
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 13px;
+        text-decoration: none;
+      }
+
+      .issue .fix-link:hover,
+      .issue .fix-link:focus-visible {
+        text-decoration: underline;
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
       .actions {
         display: flex;
         flex-wrap: wrap;
@@ -439,6 +455,8 @@
           fixes: ["review", "recrop", "switch", "accept"],
           title: (name) => `${name} is cropped too tight for the destination`,
           suggest: "Loosen the crop, switch the layout, or accept the close framing.",
+          fixScreen: "destination-crop-preview.html",
+          fixLabel: "destination crop preview",
         },
         panel: {
           label: "Too small in the panel",
@@ -453,6 +471,8 @@
           fixes: ["review", "recrop", "switch", "accept"],
           title: (name) => `${name} is cut off in the mobile crop`,
           suggest: "Re-center the mobile crop, switch to a stacked layout, or accept it.",
+          fixScreen: "destination-crop-preview.html",
+          fixLabel: "destination crop preview",
         },
       };
 
@@ -533,6 +553,8 @@
               title: check.title(frame.name || "This speaker"),
               action: check.suggest,
               tone: "review",
+              fixScreen: check.fixScreen,
+              fixLabel: check.fixLabel,
             };
           }
 
@@ -794,6 +816,15 @@
         const span = document.createElement("span");
         span.textContent = issue.action;
         article.append(strong, span);
+        // A crop-driven framing problem is fixed on the screen that owns the
+        // destination crop, so offer a direct hand-off to it (#583).
+        if (issue.fixScreen) {
+          const openLink = document.createElement("a");
+          openLink.className = "fix-link";
+          openLink.href = issue.fixScreen;
+          openLink.textContent = `Open ${issue.fixLabel} →`;
+          article.append(openLink);
+        }
         return article;
       }
 
