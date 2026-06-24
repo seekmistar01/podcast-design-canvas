@@ -20,15 +20,27 @@ This repo is curated by its maintainers for **Podcast Design Canvas**. A technic
 - Do not overproduce every moment with constant effects, b-roll, or captions that distract from the conversation.
 - Do not create outputs that only work for short clips; the core product must handle hour-plus podcast episodes.
 
+## Active Build Targets
+
+This repo is now in preview-first product assembly mode. The maintainer is prioritizing a cohesive runnable product over more isolated prototype fragments.
+
+Current targets:
+- #581 P0: Browser preview shell
+- #582 P0: One complete episode production flow
+- #583 P1: Convert isolated prototypes into connected preview screens
+- #584 P1: Preview smoke tests and regression guard
+
+PRs should clearly advance one of these targets or fix a blocker in the current preview/product path. Standalone prototype files, scattered micro-features, or useful-but-unconnected additions are closed by default until the preview shell and core episode flow are real.
+
 ## Pull Request Standard
 
 Submit one focused product improvement at a time. The maintainers prefer small, complete, verifiable changes over broad speculative rewrites.
 
 ## Current Contribution Focus
 
-This repo is currently accepting implementation work only.
+This repo is currently accepting implementation work only, focused on the active build targets above.
 
-Accepted PRs should ship or directly verify product behavior through code, prototypes, tests, workflows, configuration, or implementation changes.
+Accepted PRs should ship or directly verify product behavior through code, prototypes, tests, workflows, configuration, or implementation changes, and should clearly move the browser preview or complete episode flow forward.
 
 Docs-only, spec-only, planning-only, README/CONTRIBUTING/VISION-only, Markdown-only, typo-only, and stale-reference PRs are closed by default. They do not receive positive labels or score.
 
