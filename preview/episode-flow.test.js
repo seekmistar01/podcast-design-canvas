@@ -53,6 +53,20 @@ assert.ok(flow.includes("Continue to"), "flow explains the next step when ready"
 assert.ok(flow.includes("steps ready"), "flow summarizes progress in creator-facing copy");
 assert.ok(flow.includes('href="index.html"') || flow.includes('href="./index.html"'), "guided flow links back to the preview shell");
 assert.ok(flow.includes('href="../index.html"'), "guided flow links to the full screen catalog");
+
+// Each guided step routes into the full prototype screen it summarizes, and every
+// target resolves to a real connected screen.
+const stepScreensBlock = flow.match(/const stepScreens = \{([\s\S]*?)\};/);
+assert.ok(stepScreensBlock, "flow declares a step-to-screen map");
+const stepScreenFiles = [...stepScreensBlock[1].matchAll(/\["([a-z0-9-]+)",/g)].map((m) => m[1]);
+assert.ok(stepScreenFiles.length >= 5, "flow maps its steps to full screens");
+for (const file of stepScreenFiles) {
+  assert.ok(
+    fs.existsSync(path.join(root, "prototype", `${file}.html`)),
+    `step screen target exists: prototype/${file}.html`,
+  );
+}
+assert.ok(flow.includes("Open the full"), "each step offers a link into its full screen");
 assert.ok(flow.includes('speaker.bucket = "ready"'), "readiness step can resolve a speaker bucket");
 assert.ok(flow.includes("Add speaker name"), "readiness exposes a fix action for missing names");
 assert.ok(flow.includes("Confirm roles"), "roles step exposes a confirm action");
